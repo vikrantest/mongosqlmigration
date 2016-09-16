@@ -1,6 +1,5 @@
 import MySQLdb
 import sys
-from django.conf import settings as my_settings
 from pymongo import MongoClient
 
 
@@ -10,10 +9,10 @@ class DbConnection(object):
 
 
 	def mysql_db_connect(self,host=None,username=None,password=None,database=None):
-		_host = host or my_settings.DATABASE_HOST
-		_username = username or my_settings.DATABASE_USERNAME
-		_password = password or my_settings.DATABASE_PASSWORD
-		_database = database or my_settings.DATABASE
+		_host = host 
+		_username = username
+		_password = password
+		_database = database
 
 		try:
 			connection = MySQLdb.connect(_host,_username,_password,_database)
@@ -24,8 +23,8 @@ class DbConnection(object):
 
 
 	def mongo_db_connect(self,host=None,username=None,password=None,database=None,port=None):#check for username and password
-		_host = host or my_settings.MONGO_DATABASE_HOST
-		_database = database or my_settings.MONGO_DATABASE
+		_host = host
+		_database = database
 		print port#None check
 		if not port:
 			_port = 27017
@@ -48,10 +47,10 @@ class DbConnection(object):
 
 
 	def redis_db_connect(self,host=None,username=None,password=None,database=None):
-		_host = host or my_settings.REDIS_DATABASE_HOST
-		_username = username or my_settings.REDIS_DATABASE_USERNAME
-		_password = password or my_settings.REDIS_DATABASE_PASSWORD
-		_database = database or my_settings.REDIS_DATABASE
+		_host = host
+		_username = username
+		_password = password
+		_database = database
 		_port=6379
 
 		try:

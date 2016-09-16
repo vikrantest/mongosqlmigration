@@ -8,7 +8,7 @@ from db_connectors import *
 
 class MysqlToMongo():
 	"""
-	For migrating data from mysql to sql
+	For migrating data from mysql to mongo
 	"""
 
 	def __init__(self,mysql_host,mysql_username,mysql_password,mysql_database,mongo_host,mongo_username=None,mongo_password=None,mongo_database = None,mongo_port=None):
@@ -136,7 +136,57 @@ class MysqlToMongo():
 
 
 
+class MongoToMysql():
+	"""
+	For migrating data from mongo to mysql
+	"""
 
+	def __init__(self,mysql_host,mysql_username,mysql_password,mysql_database,mongo_host,mongo_username=None,mongo_password=None,mongo_database = None,mongo_port=None):
+		if not mongo_host:
+			self.mongo_host = 'localhost'
+		else:
+			self.mongo_host = mongo_host
+		if not mysql_host:
+			self.mysql_host = 'localhost'
+		else:
+			self.mysql_host = mysql_host
+
+		# 'localhost' if not mysql_host else _mysql_host
+		# 'localhost' if not mongo_host else _mongo_host
+
+
+
+		self.mysql_username = mysql_username
+		self.mysql_password = mysql_password
+		self.mysql_database = mysql_database
+		self.mongo_username = mongo_username
+		self.mongo_password = mongo_password
+		self.mongo_database = mongo_database
+		self.mongo_port = mongo_port
+
+
+
+
+	def __get_connections(self):
+
+		connection_obj = DbConnection()
+
+		mysql_connection = connection_obj.mysql_db_connect(self.mysql_host,self.mysql_username,self.mysql_password,self.mysql_database)
+		mongo_connection = connection_obj.mongo_db_connect(self.mongo_host,self.mongo_username,self.mongo_password,self.mongo_database,self.mongo_port)
+
+		return {'mysql_connection':mysql_connection,'mongo_connection':mongo_connection}
+
+
+	def mongo_to_mysql(self,collections=[],exclude_collections=[]):
+		connections = self.__get_connections()
+		print connections
+		mongo_obj = connections['mongo_connection']
+		mongo_obj = mongo_obj[self.mongo_database]
+		print mongo_obj.command('buildinfo')
+		# print mongo_obj.get_collection('')
+		collections = mongo_obj.collection_names()
+		print '99999999999999999'
+		print 77777777777777777777777777
 
 
 
