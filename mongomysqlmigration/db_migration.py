@@ -121,15 +121,6 @@ class MysqlToMongo():
 
 
 
-
-
-
-
-
-
-
-
-
 		connections['mysql_connection'].close()
 		connections['mongo_connection'].close()
 
@@ -179,14 +170,20 @@ class MongoToMysql():
 
 	def mongo_to_mysql(self,collections=[],exclude_collections=[]):
 		connections = self.__get_connections()
-		print connections
 		mongo_obj = connections['mongo_connection']
 		mongo_obj = mongo_obj[self.mongo_database]
-		print mongo_obj.command('buildinfo')
 		# print mongo_obj.get_collection('')
 		collections = mongo_obj.collection_names()
-		print '99999999999999999'
-		print 77777777777777777777777777
+		doc_collect_mapping = {}
+		for collection in collections:
+			mongo_collect_obj = mongo_obj[collection]
+			try:data = mongo_collect_obj.find()[1]
+			except:
+				data = {}
+			doc_collect_mapping[collection] = data
+		print doc_collect_mapping
+
+
 
 
 
