@@ -173,6 +173,18 @@ class MongoToMysql():
 		mongo_obj = connections['mongo_connection']
 		mongo_obj = mongo_obj[self.mongo_database]
 		# print mongo_obj.get_collection('')
+		datetime_input = raw_input('Are you using unix time?Y/N')
+		try:
+			if 'n' in str(datetime_input.lower()):
+				datetime_format = raw_input('please enter datetime format , like mm/dd/YYYY h:m:s')
+				if not validate_format(datetime_format):
+					return 'Wrong input given for datetime format'
+
+		except:
+			return 'Wrong input given for datetime format'
+
+
+
 		collections = mongo_obj.collection_names()
 		doc_collect_mapping = {}
 		for collection in collections:
@@ -182,6 +194,9 @@ class MongoToMysql():
 				data = {}
 			doc_collect_mapping[collection] = data
 		print doc_collect_mapping
+		for k,v in doc_collect_mapping.items():
+			print k,v.keys()
+
 
 
 
