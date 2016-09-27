@@ -1,5 +1,6 @@
 import datetime
 import sys
+import re
 
 
 
@@ -15,5 +16,10 @@ class DateFormatLib(objects):
 			print 444444444444
 
 	@classmethod
-	def validate_format(cls,format):
-		print validate_format
+	def validate_format(cls,date_format):
+		date_format = date_format.lower()
+		if re.match('[0-9]',date_format):
+			return False
+		if date_format in date_formats:
+			return True
+		return False

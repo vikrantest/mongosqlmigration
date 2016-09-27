@@ -1,0 +1,9 @@
+datetime_keys = ['created_on','created_at','added_on','added_at','updated_on','updated_at','modified_on','modified_at','date','time']
+integer_keys = 
+float_keys = 
+string_keys = 
+boolean_keys = 
+datetime_keys = 
+time_keys = 
+long_keys = 
+binary_keys = 
